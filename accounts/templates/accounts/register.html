@@ -1,0 +1,153 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+Register | Bank Management System
+{% endblock %}
+
+{% block content %}
+{# Header include placeholder: add your shared header template here later. #}
+<div class="register-page py-5">
+    <div class="container position-relative">
+        <div class="row justify-content-center align-items-center g-4">
+            <div class="col-lg-5">
+                <div class="text-white pe-lg-4">
+                    <span class="badge rounded-pill bg-warning text-dark px-3 py-2 mb-3">New Account</span>
+                    <h1 class="display-5 fw-bold mb-3">Open your bank account with confidence.</h1>
+                    <p class="lead text-white-75 mb-4">
+                        Register in a clean, secure flow and get started with your banking profile in minutes.
+                    </p>
+                    <div class="d-flex flex-wrap gap-3">
+                        <div class="px-3 py-2 rounded-3 bg-white bg-opacity-10 border border-white border-opacity-10">
+                            Secure signup
+                        </div>
+                        <div class="px-3 py-2 rounded-3 bg-white bg-opacity-10 border border-white border-opacity-10">
+                            Fast onboarding
+                        </div>
+                        <div class="px-3 py-2 rounded-3 bg-white bg-opacity-10 border border-white border-opacity-10">
+                            Responsive layout
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-7 col-xl-6">
+                <div class="card register-card border-0 shadow-lg rounded-5 overflow-hidden">
+                    <div class="card-header border-0 text-white p-4 p-md-5 register-card-header">
+                        <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
+                            <div>
+                                <p class="text-uppercase small fw-semibold opacity-75 mb-2">Bank Management System</p>
+                                <h2 class="h3 fw-bold mb-1">Create Your Account</h2>
+                                <p class="mb-0 opacity-75">Complete the form below to start your registration.</p>
+                            </div>
+                            <div class="register-avatar d-inline-flex align-items-center justify-content-center rounded-circle bg-white bg-opacity-20">
+                                <span class="fw-bold">BM</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-body p-4 p-md-5 bg-white">
+                        {% if form.non_field_errors %}
+                            <div class="alert alert-danger" role="alert">
+                                {{ form.non_field_errors }}
+                            </div>
+                        {% endif %}
+
+                        <form method="post" novalidate>
+                            {% csrf_token %}
+
+                            <div class="mb-4">
+                                <div class="d-flex align-items-center justify-content-between gap-3 mb-3 flex-wrap">
+                                    <h3 class="h6 fw-bold text-primary mb-0">Account Credentials</h3>
+                                    <span class="badge text-bg-light border">Step 1</span>
+                                </div>
+                                <div class="row g-3">
+                                    <div class="col-md-6">{{ form.username|as_crispy_field }}</div>
+                                    <div class="col-md-6">{{ form.email|as_crispy_field }}</div>
+                                    <div class="col-md-6">{{ form.first_name|as_crispy_field }}</div>
+                                    <div class="col-md-6">{{ form.last_name|as_crispy_field }}</div>
+                                    <div class="col-md-6">{{ form.password1|as_crispy_field }}</div>
+                                    <div class="col-md-6">{{ form.password2|as_crispy_field }}</div>
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <div class="d-flex align-items-center justify-content-between gap-3 mb-3 flex-wrap">
+                                    <h3 class="h6 fw-bold text-primary mb-0">Personal & Account Details</h3>
+                                    <span class="badge text-bg-light border">Step 2</span>
+                                </div>
+                                <div class="row g-3">
+                                    <div class="col-md-4">{{ form.account_type|as_crispy_field }}</div>
+                                    <div class="col-md-4">{{ form.gender|as_crispy_field }}</div>
+                                    <div class="col-md-4">{{ form.birth_date|as_crispy_field }}</div>
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <div class="d-flex align-items-center justify-content-between gap-3 mb-3 flex-wrap">
+                                    <h3 class="h6 fw-bold text-primary mb-0">Address Details</h3>
+                                    <span class="badge text-bg-light border">Step 3</span>
+                                </div>
+                                <div class="row g-3">
+                                    <div class="col-12">{{ form.street_address|as_crispy_field }}</div>
+                                    <div class="col-md-4">{{ form.city|as_crispy_field }}</div>
+                                    <div class="col-md-4">{{ form.postal|as_crispy_field }}</div>
+                                    <div class="col-md-4">{{ form.country|as_crispy_field }}</div>
+                                </div>
+                            </div>
+
+                            <div class="d-grid gap-2 mt-4">
+                                <button type="submit" class="btn btn-primary btn-lg fw-semibold shadow-sm py-3">
+                                    Complete Registration
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="card-footer bg-light border-0 text-center py-3">
+                        <small class="text-muted">
+                            Already have an account?
+                            <span class="fw-semibold text-primary">Log In coming soon</span>
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .register-page {
+        min-height: 100vh;
+        background:
+            radial-gradient(circle at top left, rgba(13, 110, 253, 0.40), transparent 36%),
+            radial-gradient(circle at bottom right, rgba(32, 201, 151, 0.28), transparent 32%),
+            linear-gradient(135deg, #0f172a 0%, #1e3a8a 48%, #0f766e 100%);
+    }
+
+    .register-card {
+        backdrop-filter: blur(14px);
+    }
+
+    .register-card-header {
+        background: linear-gradient(135deg, #0d6efd 0%, #0b5ed7 55%, #0ea5e9 100%);
+    }
+
+    .register-avatar {
+        width: 64px;
+        height: 64px;
+        font-size: 1.1rem;
+        letter-spacing: 0.08em;
+    }
+
+    .text-white-75 {
+        color: rgba(255, 255, 255, 0.75);
+    }
+
+    @media (max-width: 991.98px) {
+        .register-page {
+            min-height: auto;
+        }
+    }
+</style>
+{% endblock %}
