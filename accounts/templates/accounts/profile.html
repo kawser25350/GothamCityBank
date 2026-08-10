@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Profile | Bank Management System
+{% endblock %}
+
+{% block content %}
+<section class="auth-shell">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="auth-card shadow-soft">
+                    <div class="row g-0">
+                        <div class="col-lg-4 auth-panel">
+                            <div class="h-100 d-flex flex-column justify-content-between">
+                                <div>
+                                    <span class="bank-badge">My Profile</span>
+                                    <h2 class="mt-3">Welcome, {{ user.username }}</h2>
+                                    <p class="mb-0">Manage your account details and keep your banking profile up to date.</p>
+                                </div>
+                                <div class="auth-panel-footer">
+                                    <p class="mb-2">Need help?</p>
+                                    <a href="{% url 'home' %}" class="btn btn-outline-light btn-sm">Back to Home</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-8 p-4 p-lg-5">
+                            <div class="d-flex justify-content-between align-items-start mb-4">
+                                <div>
+                                    <h3 class="fw-bold mb-1">Account Overview</h3>
+                                    <p class="text-muted mb-0">Your personal and banking information</p>
+                                </div>
+                                <span class="live-clock" id="liveClock"></span>
+                            </div>
+
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <div class="p-3 rounded-4 bg-soft-card">
+                                        <h6 class="text-muted mb-2">Full Name</h6>
+                                        <p class="fw-semibold mb-0">{{ user.get_full_name|default:user.username }}</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="p-3 rounded-4 bg-soft-card">
+                                        <h6 class="text-muted mb-2">Email</h6>
+                                        <p class="fw-semibold mb-0">{{ user.email }}</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="p-3 rounded-4 bg-soft-card">
+                                        <h6 class="text-muted mb-2">Username</h6>
+                                        <p class="fw-semibold mb-0">{{ user.username }}</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="p-3 rounded-4 bg-soft-card">
+                                        <h6 class="text-muted mb-2">Account Status</h6>
+                                        <p class="fw-semibold mb-0 text-success">Active</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

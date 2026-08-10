@@ -1,14 +1,48 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title%} {% endblock %}</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <title>{% block title %}Bank Management System{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/hello.css' %}">
 </head>
-<body>
+<body class="bank-body">
+    {% include 'main/header.html' %}
+
     {% block content %}
     {% endblock %}
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.querySelectorAll('.auth-card').forEach(function (card) {
+                card.classList.add('is-ready');
+            });
+
+            document.querySelectorAll('.auth-form .form-control').forEach(function (input) {
+                input.addEventListener('focus', function () {
+                    const card = input.closest('.auth-card');
+                    if (card) card.classList.add('is-focused');
+                });
+
+                input.addEventListener('blur', function () {
+                    const card = input.closest('.auth-card');
+                    if (card) card.classList.remove('is-focused');
+                });
+            });
+
+            const clock = document.getElementById('liveClock');
+            if (clock) {
+                const updateClock = () => {
+                    const now = new Date();
+                    clock.textContent = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                };
+                updateClock();
+                setInterval(updateClock, 1000);
+            }
+        });
+    </script>
 </body>
 </html>

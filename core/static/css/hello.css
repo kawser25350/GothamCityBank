@@ -1,0 +1,144 @@
+:root {
+    --bank-primary: #0f4c81;
+    --bank-secondary: #1e88e5;
+    --bank-dark: #10233f;
+    --bank-soft: #f4f8fc;
+    --bank-muted: #5f7288;
+}
+
+body.bank-body {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #f4f8fc 0%, #eef5ff 100%);
+    color: var(--bank-dark);
+    min-height: 100vh;
+}
+
+.bank-navbar {
+    background: linear-gradient(90deg, var(--bank-primary), var(--bank-secondary));
+    box-shadow: 0 8px 24px rgba(15, 76, 129, 0.18);
+}
+
+.bank-navbar .nav-link,
+.bank-navbar .nav-user {
+    color: #fff !important;
+    font-weight: 500;
+}
+
+.bank-mark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.18);
+    color: #fff;
+    font-weight: 700;
+    border: 1px solid rgba(255,255,255,0.2);
+}
+
+.auth-shell {
+    min-height: calc(100vh - 80px);
+    padding: 3rem 0;
+    display: flex;
+    align-items: center;
+}
+
+.auth-card {
+    border-radius: 1.5rem;
+    overflow: hidden;
+    background: #fff;
+    border: 1px solid rgba(15, 76, 129, 0.08);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.auth-card.is-ready {
+    animation: riseIn 0.45s ease;
+}
+
+.auth-card.is-focused {
+    box-shadow: 0 20px 48px rgba(15, 76, 129, 0.14);
+}
+
+.shadow-soft {
+    box-shadow: 0 20px 45px rgba(16, 35, 63, 0.1);
+}
+
+.auth-panel {
+    background: linear-gradient(135deg, var(--bank-primary), var(--bank-secondary));
+    color: #fff;
+    padding: 2rem;
+}
+
+.bank-badge {
+    display: inline-block;
+    padding: 0.45rem 0.8rem;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.16);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 600;
+}
+
+.auth-panel-footer {
+    margin-top: 2rem;
+}
+
+.auth-form .form-control {
+    border-radius: 0.9rem;
+    border: 1px solid #dfe9f3;
+    padding: 0.85rem 1rem;
+    background: #f8fbff;
+    transition: all 0.2s ease;
+}
+
+.auth-form .form-control:focus {
+    border-color: var(--bank-secondary);
+    box-shadow: 0 0 0 4px rgba(30, 136, 229, 0.14);
+    background: #fff;
+}
+
+.btn-bank {
+    border: 0;
+    border-radius: 0.9rem;
+    padding: 0.8rem 1rem;
+    font-weight: 600;
+    background: linear-gradient(90deg, var(--bank-primary), var(--bank-secondary));
+    color: #fff;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-bank:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 24px rgba(15, 76, 129, 0.2);
+    color: #fff;
+}
+
+.bg-soft-card {
+    background: #f7fbff;
+    border: 1px solid #e3edf8;
+}
+
+.live-clock {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.45rem 0.7rem;
+    border-radius: 999px;
+    background: #f4f8fc;
+    color: var(--bank-muted);
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+@keyframes riseIn {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
