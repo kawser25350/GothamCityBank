@@ -566,6 +566,7 @@ body.bank-body {
 .bank-brand { gap: 0.75rem; color: var(--paper); font-family: "Manrope", sans-serif; font-size: 0.94rem; letter-spacing: 0.06em; text-transform: uppercase; }
 .bank-logo-image { width: 80px; height: 52px; object-fit: contain; }
 .bank-brand strong { display: block; font-weight: 700; }
+.bank-brand strong { color: var(--gold-bright); }
 .bank-brand small { display: block; margin-top: 0.12rem; color: var(--gold); font-family: "DM Mono", monospace; font-size: 0.5rem; letter-spacing: 0.16em; }
 .bank-mark { width: 38px; height: 38px; border: 1px solid var(--gold); border-radius: 50%; background: transparent; color: var(--gold-bright); font-family: "Playfair Display", serif; font-size: 1.2rem; }
 .bank-emblem { position: relative; border: 0; border-radius: 0; background: var(--gold); clip-path: polygon(0 25%, 20% 42%, 34% 20%, 44% 40%, 50% 12%, 56% 40%, 66% 20%, 80% 42%, 100% 25%, 86% 80%, 65% 64%, 50% 100%, 35% 64%, 14% 80%); }.bank-emblem span { position: absolute; top: 34%; left: 42%; width: 16%; height: 25%; background: var(--ink); }
@@ -587,7 +588,7 @@ body.bank-body {
 .hero-copy h1 { max-width: 720px; margin: 1.1rem 0 1.4rem; font-family: "Playfair Display", Georgia, serif; font-size: clamp(3.5rem, 7vw, 6.7rem); font-weight: 600; letter-spacing: -0.04em; line-height: 0.94; }
 .hero-copy h1 em { color: var(--gold-bright); font-style: normal; }
 .hero-bank-name { display: block; margin-bottom: 1rem; color: var(--gold); font-family: "DM Mono", monospace; font-size: 0.78rem; font-weight: 500; letter-spacing: 0.24em; }
-.hero-copy h1.hero-greeting { margin-top: 0; font-size: clamp(2.5rem, 5vw, 4.8rem); }
+.hero-copy h1.hero-greeting { margin-top: 0; color: var(--paper); font-size: clamp(2.5rem, 5vw, 4.8rem); }.hero-copy h1.hero-greeting em { color: var(--gold-bright); }
 .hero-lede { max-width: 450px; margin: 0; color: rgba(243, 239, 231, 0.68); font-size: 1rem; line-height: 1.8; }
 .hero-actions { display: flex; align-items: center; gap: 1.5rem; margin-top: 2.3rem; }
 .button { display: inline-flex; align-items: center; justify-content: space-between; gap: 1.2rem; min-width: 170px; padding: 0.95rem 1.15rem; border: 1px solid transparent; border-radius: 0; font-size: 0.69rem; font-weight: 700; letter-spacing: 0.1em; text-decoration: none; text-transform: uppercase; transition: transform 0.2s ease, background 0.2s ease; }
@@ -601,7 +602,7 @@ body.bank-body {
 
 .balance-card { position: relative; display: flex; flex-direction: column; justify-self: end; width: min(100%, 340px); min-height: 500px; padding: 2.1rem; border: 1px solid rgba(228, 194, 125, 0.65); background: linear-gradient(145deg, #27241f 0%, #111 72%); box-shadow: 20px 24px 0 rgba(200, 161, 90, 0.08); animation: riseIn 0.7s 0.15s ease both; }
 .balance-card::before { position: absolute; top: 1rem; right: 1rem; width: 36px; height: 36px; border: 1px solid rgba(228, 194, 125, 0.5); border-radius: 50%; content: ""; }
-.account-card-brand { margin-top: 4rem; color: var(--paper); font-family: "Playfair Display", serif; font-size: 1.7rem; font-weight: 600; letter-spacing: -0.03em; }.account-card-brand::after { display: block; width: 34px; height: 1px; margin-top: 0.7rem; background: var(--gold); content: ""; }
+.account-card-brand { margin-top: 4rem; color: var(--gold-bright); font-family: "Playfair Display", serif; font-size: 1.7rem; font-weight: 600; letter-spacing: -0.03em; }.account-card-brand::after { display: block; width: 34px; height: 1px; margin-top: 0.7rem; background: var(--gold); content: ""; }
 .balance-topline, .balance-meta, .balance-footer { display: flex; justify-content: space-between; gap: 1rem; color: rgba(243, 239, 231, 0.56); font-family: "DM Mono", monospace; font-size: 0.62rem; letter-spacing: 0.04em; text-transform: uppercase; }
 .status-dot { color: var(--gold-bright); }
 .balance-amount { margin: 4.8rem 0 2.6rem; color: var(--paper); font-family: "Playfair Display", serif; font-size: clamp(2.8rem, 5vw, 4.8rem); letter-spacing: -0.04em; line-height: 1; }

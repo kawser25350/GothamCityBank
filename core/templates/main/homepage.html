@@ -11,8 +11,7 @@ GothamCity Bank | Private Banking
 			<div class="hero-copy">
 				<span class="eyebrow">Est. 2026 · Gotham District</span>
 				{% if user.is_authenticated %}
-					<span class="hero-bank-name">GOTHAMCITY BANK</span>
-					<h1 class="hero-greeting">Good evening,<br><em>{{ user.first_name|default:user.username }}.</em></h1>
+					<h1 class="hero-greeting">GOTHAMCITY <em>BANK</em></h1>
 					<p class="hero-lede">Your private banking desk is ready. Move with certainty, wherever the city takes you.</p>
 					<div class="hero-actions">
 						<a class="button button-gold" href="{% url 'transaction_report' %}">View activity <span>↗</span></a>
