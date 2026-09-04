@@ -1,5 +1,82 @@
 {% extends 'base.html' %}
 
 {% block title %}
-Home
+GothamCity Bank | Private Banking
+{% endblock %}
+
+{% block content %}
+<main class="home-shell">
+	<section class="home-hero">
+		<div class="site-container home-hero-grid">
+			<div class="hero-copy">
+				<span class="eyebrow">Est. 2026 · Gotham District</span>
+				{% if user.is_authenticated %}
+					<span class="hero-bank-name">GOTHAMCITY BANK</span>
+					<h1 class="hero-greeting">Good evening,<br><em>{{ user.first_name|default:user.username }}.</em></h1>
+					<p class="hero-lede">Your private banking desk is ready. Move with certainty, wherever the city takes you.</p>
+					<div class="hero-actions">
+						<a class="button button-gold" href="{% url 'transaction_report' %}">View activity <span>↗</span></a>
+						<a class="text-link" href="{% url 'profile' %}">Open account centre <span>→</span></a>
+					</div>
+				{% else %}
+					<h1>Money with<br><em>a point of view.</em></h1>
+					<p class="hero-lede">A considered banking experience for people who move through the city with purpose.</p>
+					<div class="hero-actions">
+						<a class="button button-gold" href="{% url 'register' %}">Become a client <span>↗</span></a>
+						<a class="text-link" href="{% url 'login' %}">Client sign in <span>→</span></a>
+					</div>
+				{% endif %}
+			</div>
+
+			{% if user.is_authenticated %}
+				<div class="balance-card">
+					<div class="balance-topline"><span>Private account</span><span class="status-dot">● Active</span></div>
+					<div class="account-card-brand">GothamCity Bank</div>
+					<div class="account-chart" aria-label="Illustrative GothamCity Bank user activity trend">
+						<div class="chart-heading"><span>GothamCity Bank user activity</span><span>Last 7 days</span></div>
+						<svg class="chart-line" viewBox="0 0 420 76" role="img" aria-label="Illustrative rising account activity line">
+							<path class="chart-grid-line" d="M0 18H420M0 38H420M0 58H420" />
+							<polyline class="chart-path" points="8,58 76,46 144,51 212,34 280,40 348,22 412,10" />
+							<circle cx="8" cy="58" r="3" /><circle cx="76" cy="46" r="3" /><circle cx="144" cy="51" r="3" /><circle cx="212" cy="34" r="3" /><circle cx="280" cy="40" r="3" /><circle cx="348" cy="22" r="3" /><circle class="chart-point-active" cx="412" cy="10" r="4" />
+						</svg>
+						<div class="chart-axis"><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span></div>
+					</div>
+					<div class="balance-meta"><span>Account · {{ user.account.account_no }}</span><span>{{ user.account.account_type }} / USD</span></div>
+					<div class="balance-rule"></div>
+					<div class="balance-footer"><span>Protected by GothamCity security</span><span>••••  {{ user.account.account_no|slice:'-4:' }}</span></div>
+				</div>
+			{% else %}
+				<div class="city-card" aria-label="GothamCity Bank security promise">
+					<div class="city-card-sky"><span class="moon"></span><span class="signal-line line-one"></span><span class="signal-line line-two"></span></div>
+					<div class="city-card-copy"><span class="card-label">The GothamCity standard</span><strong>Quiet confidence<br>in a loud city.</strong><span class="card-caption">Secure accounts, clear decisions, human service.</span></div>
+				</div>
+			{% endif %}
+		</div>
+	</section>
+
+	<section class="home-content site-container">
+		{% if user.is_authenticated %}
+			<div class="section-heading"><div><span class="eyebrow">Your desk</span><h2>Make your next move.</h2></div><span class="section-note">Choose a service</span></div>
+			<div class="service-grid service-grid-compact">
+				<a class="service-card service-card-featured" href="{% url 'deposite' %}"><span class="service-number">01</span><span class="service-icon">＋</span><h3>Deposit funds</h3><p>Build your balance with a simple, secure deposit.</p><span class="service-arrow">↗</span></a>
+				<a class="service-card" href="{% url 'transfer_money' %}"><span class="service-number">02</span><span class="service-icon">↗</span><h3>Transfer money</h3><p>Send funds across the city in a few considered steps.</p><span class="service-arrow">↗</span></a>
+				<a class="service-card" href="{% url 'loan_request' %}"><span class="service-number">03</span><span class="service-icon">◇</span><h3>Request a loan</h3><p>Put a clear plan behind your next ambition.</p><span class="service-arrow">↗</span></a>
+			</div>
+			<div class="home-lower-grid"><div class="statement-strip"><span class="eyebrow">Account intelligence</span><strong>Your money, in focus.</strong><p>Review every deposit, transfer, withdrawal, and loan from one private ledger.</p><a class="text-link dark-link" href="{% url 'transaction_report' %}">Open transaction report <span>→</span></a></div><div class="security-note"><span class="security-seal">✦</span><div><span class="eyebrow">Always on</span><strong>Protected, day and night.</strong><p>Your account is monitored with layered security and clear activity alerts.</p></div></div></div>
+		{% else %}
+			<div class="section-heading"><div><span class="eyebrow">A different kind of bank</span><h2>Designed around your life.</h2></div><span class="section-note">01 — 03</span></div>
+			<div class="promise-grid"><article><span>01</span><h3>Clarity first</h3><p>No noise. Just a clear view of your balance, activity, and next move.</p></article><article><span>02</span><h3>Built for motion</h3><p>Deposit, transfer, withdraw, and request support wherever your day leads.</p></article><article><span>03</span><h3>Private by design</h3><p>Your information stays yours, guarded by thoughtful digital security.</p></article></div>
+			<div class="invite-band"><span class="eyebrow">The city is yours</span><h2>Step into a bank<br>with a little more character.</h2><a class="button button-dark" href="{% url 'register' %}">Open your account <span>↗</span></a></div>
+		{% endif %}
+
+		<section class="account-offers">
+			<div class="section-heading"><div><span class="eyebrow">Choose your foundation</span><h2>Two ways to bank.</h2></div><span class="section-note">Simple by design</span></div>
+			<div class="account-offer-grid">
+				<article class="account-offer account-offer-featured"><div class="offer-topline"><span>01</span><span class="offer-symbol">◇</span></div><h3>Savings account</h3><p>A steady home for your money, with the clarity and control to build toward what matters next.</p><div class="offer-meta"><span>Everyday saving</span><span>USD</span></div></article>
+				<article class="account-offer"><div class="offer-topline"><span>02</span><span class="offer-symbol">＋</span></div><h3>Regular account</h3><p>Flexible banking for daily movement, easy access, and the transactions that keep life in motion.</p><div class="offer-meta"><span>Everyday banking</span><span>USD</span></div></article>
+			</div>
+			<div class="account-offer-footer"><span>Both account types include secure digital access and full transaction visibility.</span>{% if user.is_authenticated %}<a class="text-link dark-link" href="{% url 'profile' %}">View account details <span>→</span></a>{% else %}<a class="text-link dark-link" href="{% url 'register' %}">Open an account <span>→</span></a>{% endif %}</div>
+		</section>
+	</section>
+</main>
 {% endblock %}

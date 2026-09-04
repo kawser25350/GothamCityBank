@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block title %}
-Profile | Bank Management System
+Account centre | GothamCity Bank
 {% endblock %}
 
 {% block content %}
@@ -10,7 +10,7 @@ Profile | Bank Management System
         <div class="profile-layout">
             <aside class="profile-sidebar">
                 <div>
-                    <span class="bank-badge">BankVault</span>
+                    <span class="bank-badge">GothamCity Bank</span>
                     <h2 class="profile-greeting">Hello, {{ user.first_name|default:user.username }}</h2>
                     <p class="profile-sidebar-copy">Manage your account and everyday banking from one place.</p>
                     <nav class="profile-nav" aria-label="Banking navigation">
@@ -39,16 +39,16 @@ Profile | Bank Management System
                 </div>
 
                 <div class="account-summary">
-                    <div><span class="summary-label">Account number</span><strong>{{ user.account.account_no }}</strong></div>
-                    <div><span class="summary-label">Available balance</span><strong>${{ user.account.balance }}</strong></div>
-                    <div><span class="summary-label">Account type</span><strong>{{ user.account.account_type }}</strong></div>
+                    <div class="profile-stat profile-stat-primary"><span class="summary-label">Available balance</span><strong>${{ user.account.balance }}</strong><small>Ready to move</small></div>
+                    <div class="profile-stat"><span class="summary-label">Account number</span><strong>{{ user.account.account_no }}</strong><small>GothamCity client</small></div>
+                    <div class="profile-stat"><span class="summary-label">Account type</span><strong>{{ user.account.account_type }}</strong><small>USD settlement</small></div>
                 </div>
 
                 <form method="post" class="profile-form">
                     {% csrf_token %}
                     {% if form.non_field_errors %}<div class="site-alert site-alert-error" role="alert">{{ form.non_field_errors }}</div>{% endif %}
                     <div class="profile-form-section">
-                        <h2>Personal details</h2>
+                        <div class="form-section-heading"><span class="step-marker">01</span><div><h2>Personal details</h2><p>The identity attached to your GothamCity account.</p></div></div>
                         <div class="profile-form-grid">
                             {% for field in form %}
                                 {% if field.name == 'first_name' or field.name == 'last_name' or field.name == 'username' or field.name == 'email' %}
@@ -58,7 +58,7 @@ Profile | Bank Management System
                         </div>
                     </div>
                     <div class="profile-form-section">
-                        <h2>Banking and address details</h2>
+                        <div class="form-section-heading"><span class="step-marker">02</span><div><h2>Banking and address</h2><p>Keep your client record accurate and up to date.</p></div></div>
                         <div class="profile-form-grid">
                             {% for field in form %}
                                 {% if field.name != 'first_name' and field.name != 'last_name' and field.name != 'username' and field.name != 'email' %}
@@ -67,7 +67,7 @@ Profile | Bank Management System
                             {% endfor %}
                         </div>
                     </div>
-                    <div class="profile-form-actions"><button type="submit" class="btn-bank">Save changes</button></div>
+                    <div class="profile-form-actions"><span class="form-save-note">Changes are encrypted and saved to your client record.</span><button type="submit" class="button button-dark">Save changes <span>↗</span></button></div>
                 </form>
             </main>
         </div>

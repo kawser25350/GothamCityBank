@@ -19,7 +19,7 @@ from django.utils.html import strip_tags
 # Create your views here.
 
 def transaction_email(user,ammount,mail_type):
-    subject = f'GoathamCity Bank - {mail_type} confirmation'
+    subject = f'GothamCity Bank - {mail_type} confirmation'
     
     context = {
         'user': user,
@@ -50,6 +50,8 @@ class TransactionCreateMixin(LoginRequiredMixin,CreateView):
     title=' '
 
     def dispatch(self,request,*args,**kwargs):
+        if not request.user.is_authenticated:
+            return redirect('login')
         try:
             request.user.account
         except UserBank_account.DoesNotExist:
@@ -127,7 +129,7 @@ class LoanRequstView(TransactionCreateMixin):
 class TransferMoneyView(TransactionCreateMixin):
 
     form_class=TransferMoneyForm
-    title='TransferMoney'
+    title='Transfer money'
 
     def get_initial(self):
         initial = {'transaction_type':'TransferMoney'}
