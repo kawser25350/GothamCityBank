@@ -1,7 +1,8 @@
 from django.shortcuts import render,redirect
 from django.views.generic  import CreateView,FormView
 from django.contrib.auth.views import LoginView,LogoutView
-from .forms import RegisterForm
+from django.contrib import messages
+from .forms import RegisterForm,UserChangeForm
 from django.urls import reverse_lazy
 # Create your views here.
 
@@ -27,13 +28,27 @@ class UserLoginView(LoginView):
 
 class ProfileView(FormView):
     template_name='accounts/profile.html'
-    form_class=RegisterForm
+    form_class=UserChangeForm
     success_url=reverse_lazy('profile')
 
     def dispatch(self,request,*args,**kwargs):
         if not request.user.is_authenticated:
             return redirect('login')
         return super().dispatch(request,*args,**kwargs)
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs.update({
+            'instance': self.request.user,
+            'account': self.request.user.account,
+            'address': self.request.user.user_address,
+        })
+        return kwargs
+
+    def form_valid(self, form):
+        form.save()
+        messages.success(self.request, 'Your profile was updated successfully.')
+        return super().form_valid(form)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

@@ -1,43 +1,38 @@
 {% load static %}
-<nav class="navbar navbar-expand-lg bank-navbar">
-    <div class="container">
-        <a class="navbar-brand d-flex align-items-center gap-2" href="{% url 'home' %}">
+
+<nav class="bank-navbar">
+    <div class="site-container bank-navbar-inner">
+
+        <a class="bank-brand" href="{% url 'home' %}">
             <span class="bank-mark">B</span>
-            <span class="fw-bold">BankVault</span>
+            <span>BankVault</span>
         </a>
 
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+        <div class="bank-nav-content" id="mainNav">
+            {% if user.is_authenticated %}
+                <div class="bank-actions">
+                    <a href="{% url 'withdraw' %}">Withdraw</a>
+                    <a href="{% url 'deposite' %}">Deposit</a>
+                    <a href="{% url 'loan_request' %}">Loan</a>
+                    <a href="{% url 'transfer_money' %}">Money transfer</a>
+                </div>
+            {% endif %}
 
-        <div class="collapse navbar-collapse" id="mainNav">
-            <ul class="navbar-nav ms-auto align-items-lg-center gap-2">
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'home' %}">Home</a>
-                </li>
+            <div class="bank-account-nav">
+                <a href="{% url 'home' %}">Home</a>
 
                 {% if user.is_authenticated %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'profile' %}">Profile</a>
-                    </li>
-                    <li class="nav-item">
-                        <span class="nav-user">Hello, {{ user.username }}</span>
-                    </li>
-                    <li class="nav-item">
-                        <form method="post" action="{% url 'logout' %}" class="d-inline">
-                            {% csrf_token %}
-                            <button type="submit" class="btn btn-outline-light btn-sm">Logout</button>
-                        </form>
-                    </li>
+                    <a href="{% url 'profile' %}">Profile</a>
+                    <span class="nav-user">Hello, {{ user.username }}</span>
+                    <form method="post" action="{% url 'logout' %}">
+                        {% csrf_token %}
+                        <button type="submit" class="nav-logout">Logout</button>
+                    </form>
                 {% else %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'login' %}">Login</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="btn btn-light btn-sm" href="{% url 'register' %}">Register</a>
-                    </li>
+                    <a href="{% url 'login' %}">Login</a>
+                    <a class="nav-register" href="{% url 'register' %}">Register</a>
                 {% endif %}
-            </ul>
+            </div>
         </div>
     </div>
 </nav>

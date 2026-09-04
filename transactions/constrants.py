@@ -1,0 +1,1 @@
+transaction_type=[('Loan','Loan'),('Withdraw','Withdraw'),('Deposite','Deposite'),('TransferMoney','TransferMoney')]

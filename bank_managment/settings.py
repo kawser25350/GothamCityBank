@@ -41,8 +41,12 @@ INSTALLED_APPS = [
     "accounts",
     "crispy_bootstrap5",
     "crispy_forms", 
+    "transactions"
     
 ]
+
+LOGIN_URL='login'
+LOGIN_REDIRECT_URL='home'
 
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
