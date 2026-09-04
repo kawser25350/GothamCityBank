@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}Transaction Report | Bank Management System{% endblock %}
+{% block title %}Transaction report | GothamCity Bank{% endblock %}
 
 {% block content %}
 <section class="report-shell">
@@ -8,43 +8,39 @@
         <div class="report-heading">
             <div>
                 <span class="section-kicker">Account activity</span>
-                <h1>Transaction report</h1>
-                <p>Review your deposits, withdrawals, transfers, and loans.</p>
+                <h1>Your ledger.</h1>
+                <p>A complete, considered view of every movement through your account.</p>
             </div>
-            <a class="report-back" href="{% url 'profile' %}">Back to profile</a>
+            <div class="report-heading-actions"><span class="live-clock" id="liveClock"></span><a class="report-back" href="{% url 'profile' %}">Account centre <span>→</span></a></div>
         </div>
 
+        <div class="report-overview"><div><span class="summary-label">Current balance</span><strong>${{ user.account.balance }}</strong></div><div><span class="summary-label">Account</span><strong>{{ user.account.account_no }}</strong></div><div><span class="summary-label">Ledger status</span><strong><span class="ledger-status-dot">●</span> Up to date</strong></div></div>
+
         <form method="get" class="report-filter">
+            <div class="filter-title"><span class="eyebrow">Filter ledger</span><strong>Find a transaction</strong></div>
             <label>From <input type="date" name="start_time" value="{{ start_time }}"></label>
             <label>To <input type="date" name="end_time" value="{{ end_time }}"></label>
-            <label>Type
-                <select name="transaction_type">
-                    <option value="">All transactions</option>
-                    {% for value, label in transaction_types %}
-                        <option value="{{ value }}"{% if transaction_type == value %} selected{% endif %}>{{ label }}</option>
-                    {% endfor %}
-                </select>
-            </label>
-            <button type="submit" class="btn-bank">Filter</button>
-            <a href="{% url 'transaction_report' %}" class="report-clear">Clear</a>
+            <label>Type<select name="transaction_type"><option value="">All transactions</option>{% for value, label in transaction_types %}<option value="{{ value }}"{% if transaction_type == value %} selected{% endif %}>{{ label }}</option>{% endfor %}</select></label>
+            <button type="submit" class="button button-dark">Apply <span>↗</span></button>
+            <a href="{% url 'transaction_report' %}" class="report-clear">Reset</a>
         </form>
 
         <div class="transaction-list" role="table" aria-label="Transaction report">
             <div class="transaction-line transaction-header" role="row">
-                <span>Date</span><span>Type</span><span>Amount</span><span>Balance after</span><span>Transfer to</span><span>Status</span><span>Action</span>
+                <span>Date</span><span>Transaction</span><span>Amount</span><span>Balance after</span><span>Destination</span><span>Status</span><span>Action</span>
             </div>
             {% for report in reports %}
                 <div class="transaction-line" role="row">
                     <span>{{ report.timestamp|date:'Y-m-d H:i' }}</span>
-                    <span>{{ report.get_transaction_type_display }}</span>
-                    <span>${{ report.ammount }}</span>
+                    <span class="report-transaction-name"><span class="transaction-type-mark mark-{{ report.transaction_type }}">{% if report.transaction_type == 'Deposite' %}＋{% elif report.transaction_type == 'Withdraw' %}−{% elif report.transaction_type == 'Loan' %}◇{% else %}↗{% endif %}</span>{{ report.get_transaction_type_display }}</span>
+                    <span class="report-amount {% if report.transaction_type == 'Deposite' or report.transaction_type == 'Loan' %}amount-positive{% endif %}">{% if report.transaction_type == 'Deposite' or report.transaction_type == 'Loan' %}+{% else %}-{% endif %}${{ report.ammount }}</span>
                     <span>${{ report.update_balance }}</span>
-                    <span>{% if report.transaction_type == 'TransferMoney' %}#{{ report.receiver_account_no }}{% else %}-{% endif %}</span>
-                    <span>{% if report.transaction_type == 'Loan' %}{% if report.paid %}Paid{% elif report.approval %}Approved{% else %}Pending{% endif %}{% else %}Completed{% endif %}</span>
-                    <span>{% if report.transaction_type == 'Loan' and report.approval and not report.paid %}<form method="post" action="{% url 'loan_payment' report.pk %}">{% csrf_token %}<button type="submit" class="pay-button">Pay</button></form>{% else %}—{% endif %}</span>
+                    <span>{% if report.transaction_type == 'TransferMoney' %}#{{ report.receiver_account_no }}{% else %}<span class="muted-dash">—</span>{% endif %}</span>
+                    <span><span class="status-pill status-{% if report.transaction_type == 'Loan' and not report.approval %}pending{% elif report.transaction_type == 'Loan' and not report.paid %}approved{% else %}complete{% endif %}">{% if report.transaction_type == 'Loan' %}{% if report.paid %}Paid{% elif report.approval %}Approved{% else %}Pending{% endif %}{% else %}Completed{% endif %}</span></span>
+                    <span>{% if report.transaction_type == 'Loan' and report.approval and not report.paid %}<form method="post" action="{% url 'loan_payment' report.pk %}">{% csrf_token %}<button type="submit" class="pay-button">Pay loan</button></form>{% else %}<span class="muted-dash">—</span>{% endif %}</span>
                 </div>
             {% empty %}
-                <p class="report-empty">No transactions found for this period.</p>
+                <div class="report-empty"><span class="empty-mark">○</span><strong>No transactions found.</strong><p>Try adjusting your dates or transaction type.</p></div>
             {% endfor %}
         </div>
     </div>

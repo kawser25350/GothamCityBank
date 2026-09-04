@@ -4,8 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Bank Management System{% endblock %}</title>
-    <link rel="stylesheet" href="{% static 'css/hello.css' %}?v=3">
+    <title>{% block title %}GothamCity Bank{% endblock %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/hello.css' %}?v=4">
 </head>
 <body class="bank-body">
     {% include 'main/header.html' %}
@@ -23,8 +26,34 @@
     {% block content %}
     {% endblock %}
 
+    <footer class="bank-footer">
+        <div class="site-container bank-footer-inner">
+            <span class="footer-brand"><img class="footer-logo-image" src="{% static 'logo/batman_logo.png' %}" alt=""><span>GOTHAMCITY BANK</span></span>
+            <span>Private wealth. Everyday confidence.</span>
+            <span class="footer-legal">© 2026 GothamCity</span>
+        </div>
+    </footer>
+
     <script>
         document.addEventListener('DOMContentLoaded', function () {
+            const navToggle = document.querySelector('.nav-toggle');
+            const mainNav = document.getElementById('mainNav');
+            if (navToggle && mainNav) {
+                navToggle.addEventListener('click', function () {
+                    const isOpen = mainNav.classList.toggle('is-open');
+                    navToggle.setAttribute('aria-expanded', String(isOpen));
+                    navToggle.setAttribute('aria-label', isOpen ? 'Close navigation' : 'Open navigation');
+                });
+
+                mainNav.querySelectorAll('a').forEach(function (link) {
+                    link.addEventListener('click', function () {
+                        mainNav.classList.remove('is-open');
+                        navToggle.setAttribute('aria-expanded', 'false');
+                        navToggle.setAttribute('aria-label', 'Open navigation');
+                    });
+                });
+            }
+
             document.querySelectorAll('.auth-card').forEach(function (card) {
                 card.classList.add('is-ready');
             });
