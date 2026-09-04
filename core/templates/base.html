@@ -5,16 +5,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Bank Management System{% endblock %}</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'css/hello.css' %}">
+    <link rel="stylesheet" href="{% static 'css/hello.css' %}?v=3">
 </head>
 <body class="bank-body">
     {% include 'main/header.html' %}
 
+    {% if messages %}
+        <div class="site-container notification-stack" aria-live="polite" aria-atomic="true">
+            {% for message in messages %}
+                <div class="site-alert site-alert-{{ message.tags|default:'info' }}" role="alert">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
     {% block content %}
     {% endblock %}
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             document.querySelectorAll('.auth-card').forEach(function (card) {

@@ -5,7 +5,7 @@ from .constrants import account_choice,Gender_Type
 
 
 class UserBank_account(models.Model):
-    user=models.OneToOneField(User,on_delete=models.CASCADE,related_name="UserBank_account")
+    user=models.OneToOneField(User,on_delete=models.CASCADE,related_name="account")
     account_type=models.CharField(max_length=100,choices=account_choice)
     account_no=models.IntegerField(unique=True)
     birth_date=models.DateField()
