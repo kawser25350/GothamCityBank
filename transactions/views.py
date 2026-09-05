@@ -18,29 +18,29 @@ from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 # Create your views here.
 
-def transaction_email(user,ammount,mail_type):
-    subject = f'GothamCity Bank - {mail_type} confirmation'
+# def transaction_email(user,ammount,mail_type):
+#     subject = f'GothamCity Bank - {mail_type} confirmation'
     
-    context = {
-        'user': user,
-        'ammount': ammount,
-        'subject': mail_type,
-    }
+#     context = {
+#         'user': user,
+#         'ammount': ammount,
+#         'subject': mail_type,
+#     }
     
-    html_message = render_to_string(
-        'transactions/transaction_messages.html',
-        context,
-    )
+#     html_message = render_to_string(
+#         'transactions/transaction_messages.html',
+#         context,
+#     )
 
-    send_email = EmailMultiAlternatives(
-        subject=subject,
-        body=strip_tags(html_message),
-        from_email=settings.MAILERS['default']['OPTIONS']['username'],
-        to=[user.email],
-    )
+    # send_email = EmailMultiAlternatives(
+    #     subject=subject,
+    #     body=strip_tags(html_message),
+    #     from_email=settings.MAILERS['default']['OPTIONS']['username'],
+    #     to=[user.email],
+    # )
 
-    send_email.attach_alternative(html_message, 'text/html')
-    send_email.send()
+    # send_email.attach_alternative(html_message, 'text/html')
+    # send_email.send()
 
 
 class TransactionCreateMixin(LoginRequiredMixin,CreateView):
@@ -86,7 +86,7 @@ class DepositeView(TransactionCreateMixin):
         account.save(update_fields=['balance'])
 
         messages.success(self.request,f"{ammount}$ Deposite Successfull.")
-        transaction_email(self.request.user,ammount,"Deposite")
+        # transaction_email(self.request.user,ammount,"Deposite")
         return super().form_valid(form)
 
 class WithdrawView(TransactionCreateMixin):
@@ -104,7 +104,7 @@ class WithdrawView(TransactionCreateMixin):
         account.save(update_fields=['balance'])
 
         messages.success(self.request,f"{ammount}$ Withdraw Successfull.")
-        transaction_email(self.request.user,ammount,"Withdraw")
+        # transaction_email(self.request.user,ammount,"Withdraw")
         return super().form_valid(form)
 
 class LoanRequstView(TransactionCreateMixin):
@@ -123,7 +123,7 @@ class LoanRequstView(TransactionCreateMixin):
             return HttpResponse('you have already taken 3 loan.currenlty you are not eligible.')
 
         messages.success(self.request,f"{ammount}$ Loan Request Successfull.")
-        transaction_email(self.request.user,ammount,"Loan Request")
+        # transaction_email(self.request.user,ammount,"Loan Request")
         return super().form_valid(form)
 
 class TransferMoneyView(TransactionCreateMixin):
@@ -156,7 +156,7 @@ class TransferMoneyView(TransactionCreateMixin):
 
         form.instance.receiver_account_no = receiver_account_no
         messages.success(self.request, f"${ammount} transfer successful.")
-        transaction_email(self.request.user,ammount,"Transfer Money")
+        # transaction_email(self.request.user,ammount,"Transfer Money")
         return super().form_valid(form)
 
 class TransactionReportView(LoginRequiredMixin,ListView):
