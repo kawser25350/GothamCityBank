@@ -14,7 +14,7 @@ GothamCity Bank is a Django banking management application for customer accounts
 
 It combines a customer-facing banking workspace with Django admin controls for transaction and loan management.
 
-## Screenshots
+
 
 The current interface includes responsive views for:
 
